@@ -4,8 +4,6 @@ const { Sequelize } = require("sequelize");
 const axios = require("axios");
 const cors = require("cors");
 
-const orders = [];
-
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -31,15 +29,19 @@ sequelize
 /* ================= CREATE ORDER ================= */
 
 app.post("/orders", async (req, res) => {
-  const { productId, quantity } = req.body;
+  const { userId, productId, quantity } = req.body;
 
   try {
     // 1️⃣ Lấy thông tin product
     const productResponse = await axios.get(
-      `http://localhost:3002/products/${productId}`
+      `http://localhost:3002/products/${productId}`,
     );
 
     const product = productResponse.data;
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
 
     // 2️⃣ Kiểm tra stock
     if (product.stock < quantity) {
@@ -52,11 +54,12 @@ app.post("/orders", async (req, res) => {
     // 4️⃣ Trừ stock
     await axios.put(
       `http://localhost:3002/products/${productId}/reduce-stock`,
-      { quantity }
+      { quantity },
     );
 
     // 5️⃣ Tạo order
     const order = await Order.create({
+      userId,
       productId,
       quantity,
       totalPrice,
@@ -66,7 +69,6 @@ app.post("/orders", async (req, res) => {
       message: "Order created successfully!",
       order,
     });
-
   } catch (error) {
     console.error("ORDER ERROR:", error);
 

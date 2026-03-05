@@ -24,13 +24,14 @@ DROP TABLE IF EXISTS `Orders`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Orders` (
   `id` int NOT NULL AUTO_INCREMENT,
+  `userId` int NOT NULL,
   `productId` int NOT NULL,
   `quantity` int NOT NULL,
   `totalPrice` float NOT NULL,
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +40,7 @@ CREATE TABLE `Orders` (
 
 LOCK TABLES `Orders` WRITE;
 /*!40000 ALTER TABLE `Orders` DISABLE KEYS */;
-INSERT INTO `Orders` VALUES (1,1,2,3000,'2026-03-01 12:24:30','2026-03-01 12:24:30'),(2,1,1,1500,'2026-03-02 07:14:26','2026-03-02 07:14:26'),(3,1,1,1500,'2026-03-02 07:48:14','2026-03-02 07:48:14');
+INSERT INTO `Orders` VALUES (1,1,8,1,5900,'2026-03-05 03:57:17','2026-03-05 03:57:17'),(2,1,5,1,4000,'2026-03-05 04:08:34','2026-03-05 04:08:34');
 /*!40000 ALTER TABLE `Orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -56,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-03-02 16:32:50
+-- Dump completed on 2026-03-05 11:13:09

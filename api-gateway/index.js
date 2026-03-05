@@ -25,10 +25,12 @@ app.use(createProxyMiddleware({
 }));
 
 // USER
+// USER
 app.use(createProxyMiddleware({
   target: "http://localhost:3001",
   changeOrigin: true,
-  pathFilter: ["/users"]
+  pathFilter: ["/users", "/login", "/register"],
+  logLevel: "debug"
 }));
 
 // ORDER
